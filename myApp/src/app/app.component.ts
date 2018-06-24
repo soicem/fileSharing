@@ -10,12 +10,7 @@ import {LoginPage} from "../pages/login/login"
 
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyCh377VQZpitPnjnSDPurbIm-6wFbGjmIQ",
-  authDomain: "modular-edge-147810.firebaseapp.com",
-  databaseURL: "https://modular-edge-147810.firebaseio.com",
-  projectId: "modular-edge-147810",
-  storageBucket: "modular-edge-147810.appspot.com",
-  messagingSenderId: "409651671842"
+
 };
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +25,7 @@ export class MyApp {
       };
   
       window["plugins"].OneSignal
-        .startInit("af470c88-251c-4553-a57d-0f9de339576e", "409651671842")
+        .startInit("", "")
         .handleNotificationOpened(notificationOpenedCallback)
         .endInit();
       firebase.initializeApp(config);
