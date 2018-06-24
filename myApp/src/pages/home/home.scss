@@ -1,0 +1,23 @@
+page-home {
+    .subtitle{
+        font-size:13px;
+        color:red;
+        font-weight:bold;
+    }
+}
+
+.action-sheets-basic-page {
+    .ion-md-people {
+      color: #ED4248;
+    }
+    .ion-md-person-add {
+      color: #508AE4;
+    }
+    .ion-md-person {
+      color: #31D55F;
+    }
+    .action-sheet-cancel ion-icon,
+    .action-sheet-destructive ion-icon {
+      color: #757575;
+    }
+  }

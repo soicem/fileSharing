@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar color='primary'>
+    <ion-title>
+      file sharing
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="logout()"> 
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    
+    <ion-card-content>
+      <ion-textarea rows='5' maxLength="500" placeholder="message here" [(ngModel)]='pushMessage'></ion-textarea>      
+      <button ion-button full color='danger' (click)="selectTarget()">SEND FILE</button>
+    </ion-card-content>
+    
+  </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let menu of menus" (click)='clickMenu(menu)'>
+      <div style='font-size:16px;color:rgb(112, 111, 111); font-weight:BOLD'>{{menu.title}}</div>
+        <div class="subtitle">{{menu.subTitle}}</div>
+    </ion-item>
+  </ion-list>
+  <button ion-button color="primary" (click)="choose()">Upload A FILE</button>
+  <button ion-button color="secondary" (click)="download()">Download A FILE</button>
+</ion-content>

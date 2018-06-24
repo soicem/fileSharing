@@ -1,0 +1,19 @@
+<ion-header color='primary'>
+
+  <ion-navbar>
+    <ion-title>sendMessage</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let message of messages" >
+      <div>{{message.senderName}}</div>
+      <div>{{message.date}}</div>
+      <div>{{message.pushMode}}</div>
+      <div>{{message.message}}</div>
+    </ion-item>
+  </ion-list>
+</ion-content>
