@@ -15,8 +15,8 @@ backend : firebase, oneSignal
 you can realize what I install from "src/pages/home/home.ts" import plugins
 
 ex)
--$ ionic cordova plugin add cordova-safe
--$ npm install --save @ionic-native/file-encryption
+1. $ ionic cordova plugin add cordova-safe
+2. $ npm install --save @ionic-native/file-encryption
 
 + momentjs : https://momentjs.com/
 + onesignal sdk setup : https://documentation.onesignal.com/docs/ionic-sdk-setup
