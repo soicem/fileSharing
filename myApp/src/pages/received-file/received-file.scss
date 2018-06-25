@@ -1,3 +1,19 @@
 page-received-file {
-
+    
 }
+
+.action-sheets-basic-page {
+    .ion-md-people {
+      color: #ED4248;
+    }
+    .ion-md-thunderstorm {
+      color: #508AE4;
+    }
+    .ion-md-cloud-download {
+      color: #31D55F;
+    }
+    .action-sheet-cancel ion-icon,
+    .action-sheet-destructive ion-icon {
+      color: #757575;
+    }
+  }

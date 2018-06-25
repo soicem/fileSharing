@@ -6,6 +6,7 @@ import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import * as moment from 'moment';
+import { DISABLED } from '@angular/forms/src/model';
 
 //https://github.com/disusered/cordova-safe/issues/19
 //import { FileEncryption} from '@ionic-native/file-encryption';
@@ -266,19 +267,21 @@ export class HomePage {
       buttons: [
         {
           text: 'Send All',
-          //role: 'destructive',
+          role: 'destructive',
+         
           icon: !this.platfrom.is('ios') ? 'people' : null,
           handler: () => {
-            this.sendMessageAll();
-            
+            //this.sendMessageAll();
+            // not implemented yet
           }
         },
         {
           text: 'Send Group',
+          role: 'destructive',
           icon: !this.platfrom.is('ios') ? 'person-add' : null,
           handler: () => {
-            this.sendMessageGroup();
-            
+            //this.sendMessageGroup();
+            // not implemented yet
           }
         },
         {
@@ -286,7 +289,6 @@ export class HomePage {
           icon: !this.platfrom.is('ios') ? 'person' : null,
           handler: () => {
             this.sendMessagePrivate();
-            
           }
         },
         {

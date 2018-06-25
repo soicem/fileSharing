@@ -13,7 +13,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 //import { FileEncryption} from '@ionic-native/file-encryption';
-
+import { StreamingMedia } from '@ionic-native/streaming-media';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
   providers: [
     StatusBar,
     SplashScreen, File, FileChooser, FilePath, 
-    FileTransfer, FileTransferObject, //FileEncryption,
+    FileTransfer, FileTransferObject, StreamingMedia, //FileEncryption,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoaderProvider
   ]

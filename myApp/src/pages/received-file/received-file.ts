@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import * as firebase from 'firebase';
 import {FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions } from '@ionic-native/streaming-media';
+import { ActionSheetController } from 'ionic-angular';
+
 /**
  * Generated class for the ReceivedFilePage page.
  *
@@ -18,8 +21,11 @@ import { File } from '@ionic-native/file';
 export class ReceivedFilePage {
   private dirPath: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
+    private platfrom: Platform,
     private transfer:FileTransfer,
-    private file: File
+    private file: File,
+    private streamingMedia : StreamingMedia,
+    private actionSheetCtrl : ActionSheetController,
 
   ) {
     this.initPage();
@@ -83,16 +89,20 @@ export class ReceivedFilePage {
     }
   }
 
-  clickForDownload(savedFile){
-    console.log("savedFileName : " + savedFile.fineName);
-    console.log(this.locationOfStorage);
-    let storage = firebase.storage();
-    let Ref = storage.ref(this.locationOfStorage + "/" + savedFile.fileName);
-    Ref.getDownloadURL().then((url) => {
-      const fileTransfer: FileTransferObject = this.transfer.create();
-      console.log(this.dirPath);
-      // Where to store files : https://github.com/apache/cordova-plugin-file
-      fileTransfer.download(url, this.dirPath + '/' + savedFile.fileName)
+  startVideo(videoUrl) {
+    let options: StreamingVideoOptions = {
+      successCallback: () => { console.log('Finished Video') },
+      errorCallback: (e) => { console.log('Error: ', e) },
+      orientation: 'portrait'
+    };
+ 
+    // http://www.sample-videos.com/
+    this.streamingMedia.playVideo(videoUrl, options);
+  }
+
+  fileDownload(videoUrl, fileName){
+    const fileTransfer: FileTransferObject = this.transfer.create();
+      fileTransfer.download(videoUrl, this.dirPath + '/' + fileName)
       .then((entry) => {
         alert('download complete: ' + entry.toURL());
         alert(this.dirPath);
@@ -100,7 +110,52 @@ export class ReceivedFilePage {
       }, (error) => {
         // handle error
       });
+  }
 
+  presentActionSheet(videoUrl, fileName) {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Select type',
+      cssClass: 'action-sheets-basic-page',
+      buttons: [
+        {
+          text: 'Streaming video',
+          icon: !this.platfrom.is('ios') ? 'thunderstorm' : null,
+          handler: () => {
+            this.startVideo(videoUrl + fileName);
+            console.log('video streaming clicked');
+          }
+        },{
+          text: 'Download video',
+          icon: !this.platfrom.is('ios') ? 'cloud-download' : null,
+          handler: () => {
+            this.fileDownload(videoUrl, fileName);
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          icon: !this.platfrom.is('ios') ? 'close' : null,
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+  
+  clickForDownload(savedFile){
+    console.log("savedFileName : " + savedFile.fineName);
+    console.log(this.locationOfStorage);
+    let storage = firebase.storage();
+    let Ref = storage.ref(this.locationOfStorage + "/" + savedFile.fileName);
+    Ref.getDownloadURL().then((url) => {
+      
+      console.log(this.dirPath);
+      // Where to store files : https://github.com/apache/cordova-plugin-file
+      console.log(url + this.dirPath + '/'+ savedFile.fileName);
+      this.presentActionSheet(url + this.dirPath + '/', savedFile.fileName);
+      //this.startVideo(url + this.dirPath + '/' + savedFile.fileName);
     })
   }
 }
