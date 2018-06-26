@@ -89,6 +89,7 @@ export class ReceivedFilePage {
     }
   }
 
+  // streaming
   startVideo(videoUrl) {
     let options: StreamingVideoOptions = {
       successCallback: () => { console.log('Finished Video') },
@@ -112,6 +113,7 @@ export class ReceivedFilePage {
       });
   }
 
+  // Action Sheet로 streaming과 download 타입 선택을 요구한다.
   presentActionSheet(videoUrl, fileName) {
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Select type',
@@ -144,6 +146,7 @@ export class ReceivedFilePage {
     actionSheet.present();
   }
   
+  // receivedFile에서 파일을 클릭하면 동작하며 presentAction sheet를 보인다.
   clickForDownload(savedFile){
     console.log("savedFileName : " + savedFile.fineName);
     console.log(this.locationOfStorage);

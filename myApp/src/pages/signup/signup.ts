@@ -28,6 +28,7 @@ export class SignupPage {
     console.log('ionViewDidLoad SignupPage');
   }
 
+  // email과 password로 firebase authentication을 활용해서 회원가입한다.
   async signup(){
     try{
       const result = await firebase.auth().createUserWithEmailAndPassword(this.account.email, 

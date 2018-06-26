@@ -70,6 +70,8 @@ export class HomePage {
     this.initPage();
   }
 
+
+  // homepage에 있는 메뉴 클릭 시 navigator Control이 다른 page 실행
   clickMenu(menu){
     if(menu.id === "001"){
       this.navCtrl.push("UsersPage");
@@ -82,6 +84,7 @@ export class HomePage {
     }
   }
 
+  // file donwload를 위해 initialize Directory
   initDir() {
     let result = this.file.createDir(this.file.externalRootDirectory, this.userName, true);
 
@@ -100,6 +103,8 @@ export class HomePage {
     })
   }
 
+  // homepage initialize 시 실행
+  // 현재 사용자의 정보를 전역변수로 저장
   initPage() {
     var user = firebase.auth().currentUser;
     console.log(user);
@@ -176,6 +181,11 @@ export class HomePage {
 
   }*/
 
+
+  // 파일 선택기를 실행
+  // 파일의 선택하면 content: ~ 형식의 uri를 받는다.
+  // resolveLocalFilesystemUrl로 file:~ 형식의 url을 만든다.
+  // 이후 readAsArrayBuffer에서 파일을 읽어서 upload 매개변수로 보낸다.
   choose(dbDir) {
     this.fileChooser.open().then((uri) => {
       this.file.resolveLocalFilesystemUrl(uri).then((newUrl) => {
@@ -201,6 +211,8 @@ export class HomePage {
 
     })
   }
+
+  // 파일을 업로드한다.  이때 database의 savedFile 테이블과 storage가 모두 업데이트된다.
   async upload(dbDir, buffer, name) {
     //alert(name);
     let blob = new Blob([buffer], { type: "" });
@@ -239,7 +251,9 @@ export class HomePage {
       alert(JSON.stringify(error));
     })
   }
-  download() {
+
+  // 파일 다운로드 샘플
+  /*download() {
     let storage = firebase.storage();
     let imgRef = storage.ref('private/soicem/20180605_114926.jpg');
     imgRef.getDownloadURL().then((url) => {
@@ -256,7 +270,7 @@ export class HomePage {
 
     })
 
-  }
+  }*/
 
   // SEND_FILE button callback
   selectTarget() {
@@ -377,6 +391,8 @@ export class HomePage {
     });
     profileModal.present();
   }
+
+  // onesignal push notification을 위해서 playerId를 받아온다.
   private playerIds : any = [];
   getPlayerIds(groupName){
     var userRef = firebase.database().ref("users/");
@@ -430,6 +446,8 @@ export class HomePage {
     });
     profileModal.present();
   }
+
+  // pushMode에 따라서 message를 보낸다.
   sendPushMessage(playerId, message) {
     var player_ids:any = [];
     if(this.pushMode ==="private"){
@@ -451,6 +469,8 @@ export class HomePage {
         include_player_ids: player_ids,
       };
 
+
+      // push notification
       window["plugins"].OneSignal.postNotification(notificationObj,
         (successResponse) => {
           var newPostKey = firebase.database().ref().child('sendMessages').push().key;
